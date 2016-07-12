@@ -2,16 +2,17 @@ package au.com.paulmurphy.generators.http;
 
 import com.google.common.collect.ImmutableList;
 import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.PrimitiveGenerators;
 
 import java.util.List;
+import static net.java.quickcheck.generator.CombinedGenerators.excludeValues;
+import static net.java.quickcheck.generator.PrimitiveGenerators.fixedValues;
 
 /**
  * A {@link Generator} for Http Status Codes.
  *
  * @author Paul Murphy
  */
-public class StatusCodeGenerator implements Generator<Integer> {
+public final class StatusCodeGenerator implements Generator<Integer> {
 
     public static final List<Integer> INFORMATIONAL_CODES =
             ImmutableList.of(100, 101, 102);
@@ -34,9 +35,36 @@ public class StatusCodeGenerator implements Generator<Integer> {
 
     private final Generator<Integer> generator;
 
+    private StatusCodeGenerator(final Generator<Integer> generator) {
+        this.generator = generator;
+    }
 
-    public StatusCodeGenerator() {
-        generator = PrimitiveGenerators.fixedValues(ALL_CODES);
+    /**
+     * Produces a {@link StatusCodeGenerator} which contains all Http Status Codes.
+     *
+     * @return StatusCodeGenerator of all Http Status Codes
+     */
+    public static StatusCodeGenerator allCodes() {
+        return new StatusCodeGenerator(fixedValues(ALL_CODES));
+    }
+
+    /**
+     * Produces a {@code StatusCodeGenerator} with Http 2XX status codes.
+     *
+     * @return StatusCodeGenerator with 2XX status codes
+     */
+    public static StatusCodeGenerator successCodes() {
+        return new StatusCodeGenerator(fixedValues(SUCCESS_CODES));
+    }
+
+    /**
+     * Produces a {@code StatusCodeGenerator} excluding the provided {@code Integer} values.
+     *
+     * @param exclude List<Integer> values to exclude.
+     * @return StatusCodeGenerator excluding the provided values.
+     */
+    public static StatusCodeGenerator exclude(List<Integer> exclude) {
+        return new StatusCodeGenerator(excludeValues(fixedValues(ALL_CODES), exclude));
     }
 
     @Override
