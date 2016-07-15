@@ -18,7 +18,7 @@
         <findbugs.maven.plugin.version>3.0.4</findbugs.maven.plugin.version>
         <pitest.plugin.version>1.1.10</pitest.plugin.version>
 
-        <skip.coverage>true</skip.coverage>
+        <skip.coverage>false</skip.coverage>
         <!-- Do not reduce these values -->
         <coverage.ratio.instruction>0.8500</coverage.ratio.instruction>
         <coverage.ratio.branch>0.8500</coverage.ratio.branch>
@@ -199,6 +199,9 @@
                     <coverageThreshold>${pitest.mutation.coverage.threshold}</coverageThreshold>
                     <mutationThreshold>${pitest.mutation.mutation.threshold}</mutationThreshold>
                     <skip>${skip.coverage}</skip>
+                    <excludedMethods>
+                        <excludedMethod>equals</excludedMethod>
+                    </excludedMethods>
                 </configuration>
                 <executions>
                     <execution>
