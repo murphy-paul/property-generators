@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Produces Key Value {@link Pair} representations for Http Headers. The Key names will produce both actual header
- * key and random key names. Some keys may also product valid values plus random data.
+ * key and random key names. Some keys may also produce valid values plus random data.
  *
  * @author Paul Murphy
  */
