@@ -63,7 +63,7 @@ The HeaderGenerator provides key values pairs which represent http headers. Exam
 
 A test for such a method could use the generator
 
-```
+```java
     @Test
     public void shouldNotReplaceExistingHeaders() {
         forAll(new HeaderGenerator(), new AbstractCharacteristic<Pair<String, String>>() {
